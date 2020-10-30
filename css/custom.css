@@ -1,3 +1,11 @@
+:root{
+    --lightblue: #A3DEF7;
+}
+
+.bg-lightblue{
+    background-color: var(--lightblue);
+}
+
 body{
    font-family: 'Montserrat', sans-serif;
 }
