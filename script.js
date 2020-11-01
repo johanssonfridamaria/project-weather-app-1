@@ -38,9 +38,8 @@ function displayResult(data) {
     const todaysWeather = currentWeather.weather[0].main;
     const todaysTemp = currentWeather.temp;
     const city = 'Örebro'; // Hur få ut location?
+
     console.log(forecast);
-    console.log(currentWeather);
-    console.log(todaysWeather);
 
     const sunriseTime = new Date(currentWeather.sunrise * 1000).toLocaleTimeString();
     const sunsetTime = new Date(currentWeather.sunset * 1000).toLocaleTimeString();
@@ -79,5 +78,17 @@ function displayResult(data) {
             message.textContent = `Don't forget your hat and gloves today. ${city} is snowy today.`
         }
     }
+
     messageContent(todaysWeather);
+
+    let dailyWeather = [];
+    dailyWeather= data.daily;
+    console.log(dailyWeather)
+
+
+    for(i=0; i< dailyWeather.length; i++){
+        let date= dailyWeather[i].dt;
+        date = new Date(date * 1000).toDateString();
+        console.log(date);
+    }
 }
