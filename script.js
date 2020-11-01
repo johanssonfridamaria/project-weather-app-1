@@ -1,6 +1,7 @@
 const today = document.querySelector('#currentCast');
 const sunrise = document.querySelector('#sunrise');
 const sunset = document.querySelector('#sunset');
+const message = document.querySelector('#message');
 
 let weatherData = [];
 
@@ -36,6 +37,7 @@ function displayResult(data) {
     const currentWeather = data.current;
     const todaysWeather = currentWeather.weather[0].main;
     const todaysTemp = currentWeather.temp;
+    const city = 'Örebro'; // Hur få ut location?
     console.log(forecast);
     console.log(currentWeather);
     console.log(todaysWeather);
@@ -49,17 +51,33 @@ function displayResult(data) {
         hours = parseInt(hours);
         minutes = parseInt(minutes);
 
-        time = (hours * 60) + minutes; 
-    
+        time = (hours * 60) + minutes;
+
         let rounded = Math.round(time / minutesToRound) * minutesToRound;
-        let rHr = ''+Math.floor(rounded / 60)
-        let rMin = ''+ rounded % 60
-    
-        return rHr.padStart(2, '0')+':'+rMin.padStart(2, '0')
+        let rHr = '' + Math.floor(rounded / 60)
+        let rMin = '' + rounded % 60
+
+        return rHr.padStart(2, '0') + ':' + rMin.padStart(2, '0')
     }
 
     today.textContent = `${todaysWeather} | ${todaysTemp.toFixed(0)}°`
     sunrise.textContent = `Sunrise: ${roundTime(sunriseTime, 15)}`;
-    sunset.textContent = `Sunset: ${roundTime(sunsetTime,15)}`;
+    sunset.textContent = `Sunset: ${roundTime(sunsetTime, 15)}`;
 
+    function messageContent(todaysWeather) {
+
+        if (todaysWeather === 'Clear') {
+            message.textContent = `Get your sunnies on. ${city} is looking rather great today.`
+        }
+        else if (todaysWeather === 'Rain') {
+            message.textContent = `Don’t forget your umbrella. It’s wet in ${city} today.`
+        }
+        else if (todaysWeather === 'Clouds') {
+            message.textContent = `Light a fire and get cosy. ${city} is looking grey today.`
+        }
+        else if (todaysWeather === 'Snow') {
+            message.textContent = `Don't forget your hat and gloves today. ${city} is snowy today.`
+        }
+    }
+    messageContent(todaysWeather);
 }
