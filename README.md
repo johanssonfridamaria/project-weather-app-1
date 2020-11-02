@@ -1,13 +1,12 @@
 # Weather App
+Private project, borrowed idea from Technigo.
 
-Replace this readme with your own information about your project.
+## Project: 
+I built a web app with Weather forecast for the users current location for current day and 7 days forward.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+This is my first project fetching a third party API. I used the GEO location API to collect the users location, the Open Weather API to collect the forecast and LocationIQ API to make a reverse geocoding to get the location city name.
 
-## The problem
+## Tech used: 
+HTML, CSS, Javascript & Bootstrap library.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
-
-## View it live
-
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+### View it here: 
