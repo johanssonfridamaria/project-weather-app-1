@@ -1,5 +1,5 @@
 # Weather App
-Private project, borrowed idea from Technigo.
+Private project, borrowed idea & design from Technigo.
 
 ## Project: 
 I built a web app with Weather forecast for the users current location for current day and 7 days forward.
