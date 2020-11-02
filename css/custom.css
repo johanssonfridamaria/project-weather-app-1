@@ -8,6 +8,11 @@
 
 body{
    font-family: 'Montserrat', sans-serif;
+   color: #F47775;
+}
+
+h1{
+    font-weight: 600;
 }
 
 #weatherImg{
