@@ -7,8 +7,8 @@
     <title></title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="https://fonts.google.com/specimen/Montserrat" rel="stylesheet">
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="http://openweathermap.org/img/wn/10d@2x.png">
 
@@ -18,19 +18,19 @@
 
 <body class="bg-lightblue d-flex justify-content-center">
 
-    <div class="container py-5">
-        <div>
+    <div class="main py-3">
+        <div class="mb-4">
             <p id="currentCast" class="mb-0"></p>
             <p id="sunrise" class="mb-0"></p>
             <p id="sunset" class="mb-0"></p>
         </div>
 
-        <div class="py-4">
-            <div id="img" class="pb-4"></div>
-            <h1 class="bolder" id="message"></h1>
+        <div class="pt-5 pb-5">
+            <div id="img" class="pb-5"></div>
+            <h1 id="message"></h1>
         </div>
 
-        <table class="table">
+        <table class="table tableCustom ">
             <tbody id="days">
             </tbody>
         </table>

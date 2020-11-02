@@ -69,23 +69,19 @@ function displayResult(data, result) {
     function messageContent(todaysWeather) {
 
         if (todaysWeather === 'Clear') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Sunglasses_2055147.svg" alt="Sunglasses">`;
-            img.style.color = '#F47775';
+            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Sunglasses_2055147.svg" alt="Sunglasses" id="symbol">`;
             message.textContent = `Get your sunnies on. ${city} is looking rather great today.`;
         }
         else if (todaysWeather === 'Rain') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Umbrella_2030530.svg" alt="Umbrella">`;
-            img.style.color = '#164A68';
+            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Umbrella_2030530.svg" alt="Umbrella" id="symbol">`;
             message.textContent = `Don’t forget your umbrella. It’s wet in ${city} today.`;
         }
         else if (todaysWeather === 'Clouds') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Cloud_1188486.svg" alt="Cloud">`;
-            img.style.color = '#F47775';
+            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Cloud_1188486.svg" alt="Cloud" id="symbol">`;
             message.textContent = `Light a fire and get cosy. ${city} is looking grey today.`;
         }
         else if (todaysWeather === 'Snow') {
             img.innerHTML = `<i class="far fa-snowflake"></i>`;
-            img.style.color = '#164A68';
             message.textContent = `Don't forget your hat and gloves today. ${city} is snowy today.`;
         }
     }

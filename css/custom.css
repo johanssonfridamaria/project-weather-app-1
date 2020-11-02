@@ -1,5 +1,6 @@
 :root{
     --lightblue: #A3DEF7;
+    --darkblue: #164A68;
 }
 
 .bg-lightblue{
@@ -8,7 +9,12 @@
 
 body{
    font-family: 'Montserrat', sans-serif;
-   color: #F47775;
+   color: var(--darkblue);
+}
+
+.main{
+    width: 80%;
+    max-width: 30rem;
 }
 
 h1{
@@ -21,4 +27,18 @@ h1{
 
 .far{
     font-size: 4rem;
+    color: var(--darkblue);
+}
+
+#symbol{
+    height: 4rem;
+    color: var(--darkblue);
+}
+
+.tableCustom td, th{
+    vertical-align: middle;
+    border-top: none;
+    border-bottom: 0.05rem dashed var(--darkblue);
+    padding-top: 0rem;
+    padding-bottom: 0rem;
 }
