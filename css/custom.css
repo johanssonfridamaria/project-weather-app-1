@@ -9,3 +9,11 @@
 body{
    font-family: 'Montserrat', sans-serif;
 }
+
+#weatherImg{
+    width: 50px;
+}
+
+.far{
+    font-size: 4rem;
+}

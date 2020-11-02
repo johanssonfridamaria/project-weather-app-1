@@ -8,15 +8,19 @@ const days = document.querySelector('#days');
 let weatherData = [];
 
 function success(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
 
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=b8b4c63b8481846f4a3bc15b450f2654`)
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly&units=metric&appid=b8b4c63b8481846f4a3bc15b450f2654`)
         .then(res => res.json())
         .then(data => {
-            displayResult(data);
+
+            fetch(`https://us1.locationiq.com/v1/reverse.php?key=pk.1a3591f731d0ed06e852585f3a97b376&format=json&lat=${lat}&lon=${lng}`)
+                .then(res => res.json())
+                .then(result => {
+                    displayResult(data, result);
+                })
         })
-    // const grouped = _.groupBy(list, car => list.dt);
 }
 
 function error() {
@@ -33,15 +37,16 @@ function getLocation() {
 
 getLocation();
 
-function displayResult(data) {
+
+function displayResult(data, result) {
 
     const forecast = data;
     const currentWeather = data.current;
     const todaysWeather = currentWeather.weather[0].main;
     const todaysTemp = currentWeather.temp;
-    const city = 'Örebro'; // Hur få ut location?
+    const city = result.address.city;
 
-    console.log(forecast);
+    console.log(city);
 
     const sunriseTime = new Date(currentWeather.sunrise * 1000).toLocaleTimeString();
     const sunsetTime = new Date(currentWeather.sunset * 1000).toLocaleTimeString();
@@ -68,24 +73,23 @@ function displayResult(data) {
     function messageContent(todaysWeather) {
 
         if (todaysWeather === 'Clear') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Sunglasses_2055147.svg" alt="Sunglasses"</img>`;
-            img.style.color='#F47775';
+            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Sunglasses_2055147.svg" id="weatherImg" alt="Sunglasses">`;
+            img.style.color = '#F47775';
             message.textContent = `Get your sunnies on. ${city} is looking rather great today.`;
         }
         else if (todaysWeather === 'Rain') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Umbrella_2030530.svg" alt="Umbrella"></img>`;
-            img.style.color='#164A68';
+            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Umbrella_2030530.svg" id="weatherImg" alt="Umbrella">`;
+            img.style.color = '#164A68';
             message.textContent = `Don’t forget your umbrella. It’s wet in ${city} today.`;
         }
         else if (todaysWeather === 'Clouds') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Cloud_1188486.svg" alt="Cloud"</img>`;
-            img.style.color='#F47775';
+            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Cloud_1188486.svg" id="weatherImg" alt="Cloud">`;
+            img.style.color = '#F47775';
             message.textContent = `Light a fire and get cosy. ${city} is looking grey today.`;
         }
         else if (todaysWeather === 'Snow') {
             img.innerHTML = `<i class="far fa-snowflake"></i>`;
-            img.style.fontSize='4rem';
-            img.style.color='#164A68';
+            img.style.color = '#164A68';
             message.textContent = `Don't forget your hat and gloves today. ${city} is snowy today.`;
         }
     }
@@ -94,7 +98,6 @@ function displayResult(data) {
 
     let dailyWeather = [];
     dailyWeather = data.daily;
-    console.log(dailyWeather)
 
     for (i = 1; i < dailyWeather.length; i++) {
         let date = dailyWeather[i].dt;
@@ -112,19 +115,22 @@ function displayResult(data) {
             iconId: iconId
         }
 
-            const tr = document.createElement('tr')
-            const weekday = document.createElement('td')
-            const temp = document.createElement('td')
-            const icon = document.createElement('td')
-    
-            weekday.innerText=`${day.date}`;
-            temp.innerText=`${day.minTemp}°/${day.maxTemp}°C`;
-            icon.innerHTML=`<img src=http://openweathermap.org/img/wn/${day.iconId}@2x.png alt="WeatherIcon"</img>`;
-    
-            tr.appendChild(weekday);
-            tr.appendChild(temp);
-            tr.appendChild(icon);
-            days.appendChild(tr);
+        const tr = document.createElement('tr')
+        const weekday = document.createElement('td')
+        const temp = document.createElement('td')
+        const icon = document.createElement('td')
+
+
+        weekday.innerText = `${day.date}`;
+        temp.innerText = `${day.minTemp.toFixed(0)}°/${day.maxTemp.toFixed(0)}°C`;
+        icon.innerHTML = `<img src=http://openweathermap.org/img/wn/${day.iconId}@2x.png alt="WeatherIcon">`;
+        const img = icon.firstChild;
+        img.style.width = '2.5rem';
+
+        tr.appendChild(weekday);
+        tr.appendChild(temp);
+        tr.appendChild(icon);
+        days.appendChild(tr);
 
     }
 }
