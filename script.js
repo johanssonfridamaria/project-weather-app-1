@@ -5,8 +5,6 @@ const message = document.querySelector('#message');
 const img = document.querySelector('#img');
 const days = document.querySelector('#days');
 
-let weatherData = [];
-
 function success(position) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
@@ -41,12 +39,10 @@ getLocation();
 function displayResult(data, result) {
 
     const forecast = data;
-    const currentWeather = data.current;
+    const currentWeather = forecast.current;
     const todaysWeather = currentWeather.weather[0].main;
     const todaysTemp = currentWeather.temp;
     const city = result.address.city;
-
-    console.log(city);
 
     const sunriseTime = new Date(currentWeather.sunrise * 1000).toLocaleTimeString();
     const sunsetTime = new Date(currentWeather.sunset * 1000).toLocaleTimeString();
@@ -120,17 +116,13 @@ function displayResult(data, result) {
         const temp = document.createElement('td')
         const icon = document.createElement('td')
 
-
         weekday.innerText = `${day.date}`;
         temp.innerText = `${day.minTemp.toFixed(0)}°/${day.maxTemp.toFixed(0)}°C`;
         icon.innerHTML = `<img src=http://openweathermap.org/img/wn/${day.iconId}@2x.png alt="WeatherIcon">`;
-        const img = icon.firstChild;
-        img.style.width = '2.5rem';
 
         tr.appendChild(weekday);
         tr.appendChild(temp);
         tr.appendChild(icon);
         days.appendChild(tr);
-
     }
 }
