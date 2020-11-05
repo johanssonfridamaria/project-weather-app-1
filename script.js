@@ -9,12 +9,14 @@ function success(position) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
     const apiKey= 'b8b4c63b8481846f4a3bc15b450f2654';
+    const openWeatherURI = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly&units=metric&appid=${apiKey}`;
+    const locationURI = `https://us1.locationiq.com/v1/reverse.php?key=pk.1a3591f731d0ed06e852585f3a97b376&format=json&lat=${lat}&lon=${lng}`;
 
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly&units=metric&appid=${apiKey}`)
+    fetch(openWeatherURI)
         .then(res => res.json())
         .then(data => {
 
-            fetch(`https://us1.locationiq.com/v1/reverse.php?key=pk.1a3591f731d0ed06e852585f3a97b376&format=json&lat=${lat}&lon=${lng}`)
+            fetch(locationURI)
                 .then(res => res.json())
                 .then(result => {
                     displayResult(data, result);
