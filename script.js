@@ -24,20 +24,55 @@ function success(position) {
         })
 }
 
-function error() {
-    console.log('fail')
+function error(errorMessage) {
+    console.error(errorMessage);
 }
 
 function getLocation() {
     if (!navigator.geolocation) {
-        console.log('error');
+        error('Failed to retrieve Geolocation');
     } else {
-        navigator.geolocation.getCurrentPosition(success, error);
+        navigator.geolocation.getCurrentPosition(success, () =>  error('Failed to retrieve current position'));
     }
 }
 
 getLocation();
 
+
+let roundTime = (time, minutesToRound) => {
+
+    let [hours, minutes] = time.split(':');
+    hours = parseInt(hours);
+    minutes = parseInt(minutes);
+
+    time = (hours * 60) + minutes;
+
+    let rounded = Math.round(time / minutesToRound) * minutesToRound;
+    let rHr = '' + Math.floor(rounded / 60)
+    let rMin = '' + rounded % 60
+
+    return rHr.padStart(2, '0') + ':' + rMin.padStart(2, '0')
+}
+
+function messageContent(todaysWeather,city) {
+
+    if (todaysWeather === 'Clear') {
+        img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Sunglasses_2055147.svg" alt="Sunglasses" id="symbol">`;
+        message.textContent = `Get your sunnies on. ${city} is looking rather great today.`;
+    }
+    else if (todaysWeather === 'Rain') {
+        img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Umbrella_2030530.svg" alt="Umbrella" id="symbol">`;
+        message.textContent = `Don’t forget your umbrella. It’s wet in ${city} today.`;
+    }
+    else if (todaysWeather === 'Clouds') {
+        img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Cloud_1188486.svg" alt="Cloud" id="symbol">`;
+        message.textContent = `Light a fire and get cosy. ${city} is looking grey today.`;
+    }
+    else if (todaysWeather === 'Snow') {
+        img.innerHTML = `<i class="far fa-snowflake"></i>`;
+        message.textContent = `Don't forget your hat and gloves today. ${city} is snowy today.`;
+    }
+}
 
 function displayResult(weatherInfo, locationInfo) {
 
@@ -45,51 +80,16 @@ function displayResult(weatherInfo, locationInfo) {
     const currentWeather = forecast.current;
     const todaysWeather = currentWeather.weather[0].main;
     const todaysTemp = currentWeather.temp;
-    const city = locationInfo.address.city;
+    const city = locationInfo.address.city || locationInfo.address.county || locationInfo.address.state;
 
     const sunriseTime = new Date(currentWeather.sunrise * 1000).toLocaleTimeString();
     const sunsetTime = new Date(currentWeather.sunset * 1000).toLocaleTimeString();
-
-    let roundTime = (time, minutesToRound) => {
-
-        let [hours, minutes] = time.split(':');
-        hours = parseInt(hours);
-        minutes = parseInt(minutes);
-
-        time = (hours * 60) + minutes;
-
-        let rounded = Math.round(time / minutesToRound) * minutesToRound;
-        let rHr = '' + Math.floor(rounded / 60)
-        let rMin = '' + rounded % 60
-
-        return rHr.padStart(2, '0') + ':' + rMin.padStart(2, '0')
-    }
 
     today.textContent = `${todaysWeather} | ${todaysTemp.toFixed(0)}°`
     sunrise.textContent = `Sunrise: ${roundTime(sunriseTime, 15)}`;
     sunset.textContent = `Sunset: ${roundTime(sunsetTime, 15)}`;
 
-    function messageContent(todaysWeather) {
-
-        if (todaysWeather === 'Clear') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Sunglasses_2055147.svg" alt="Sunglasses" id="symbol">`;
-            message.textContent = `Get your sunnies on. ${city} is looking rather great today.`;
-        }
-        else if (todaysWeather === 'Rain') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Umbrella_2030530.svg" alt="Umbrella" id="symbol">`;
-            message.textContent = `Don’t forget your umbrella. It’s wet in ${city} today.`;
-        }
-        else if (todaysWeather === 'Clouds') {
-            img.innerHTML = `<img src="/Designs/Design-2/icons/noun_Cloud_1188486.svg" alt="Cloud" id="symbol">`;
-            message.textContent = `Light a fire and get cosy. ${city} is looking grey today.`;
-        }
-        else if (todaysWeather === 'Snow') {
-            img.innerHTML = `<i class="far fa-snowflake"></i>`;
-            message.textContent = `Don't forget your hat and gloves today. ${city} is snowy today.`;
-        }
-    }
-
-    messageContent(todaysWeather);
+    messageContent(todaysWeather,city);
 
     let dailyWeather = [];
     dailyWeather = weatherInfo.daily;
