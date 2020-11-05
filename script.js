@@ -18,8 +18,8 @@ function success(position) {
 
             fetch(locationURI)
                 .then(res => res.json())
-                .then(result => {
-                    displayResult(data, result);
+                .then(locationInfo => {
+                    displayResult(data, locationInfo);
                 })
         })
 }
@@ -39,13 +39,13 @@ function getLocation() {
 getLocation();
 
 
-function displayResult(data, result) {
+function displayResult(data, locationInfo) {
 
     const forecast = data;
     const currentWeather = forecast.current;
     const todaysWeather = currentWeather.weather[0].main;
     const todaysTemp = currentWeather.temp;
-    const city = result.address.city;
+    const city = locationInfo.address.city;
 
     const sunriseTime = new Date(currentWeather.sunrise * 1000).toLocaleTimeString();
     const sunsetTime = new Date(currentWeather.sunset * 1000).toLocaleTimeString();
