@@ -8,8 +8,9 @@ const days = document.querySelector('#days');
 function success(position) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
+    const apiKey= 'b8b4c63b8481846f4a3bc15b450f2654';
 
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly&units=metric&appid=b8b4c63b8481846f4a3bc15b450f2654`)
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly&units=metric&appid=${apiKey}`)
         .then(res => res.json())
         .then(data => {
 
