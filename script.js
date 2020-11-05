@@ -14,12 +14,12 @@ function success(position) {
 
     fetch(openWeatherURI)
         .then(res => res.json())
-        .then(data => {
+        .then(weatherInfo => {
 
             fetch(locationURI)
                 .then(res => res.json())
                 .then(locationInfo => {
-                    displayResult(data, locationInfo);
+                    displayResult(weatherInfo, locationInfo);
                 })
         })
 }
@@ -39,9 +39,9 @@ function getLocation() {
 getLocation();
 
 
-function displayResult(data, locationInfo) {
+function displayResult(weatherInfo, locationInfo) {
 
-    const forecast = data;
+    const forecast = weatherInfo;
     const currentWeather = forecast.current;
     const todaysWeather = currentWeather.weather[0].main;
     const todaysTemp = currentWeather.temp;
@@ -92,7 +92,7 @@ function displayResult(data, locationInfo) {
     messageContent(todaysWeather);
 
     let dailyWeather = [];
-    dailyWeather = data.daily;
+    dailyWeather = weatherInfo.daily;
 
     for (i = 1; i < dailyWeather.length; i++) {
         let date = dailyWeather[i].dt;
