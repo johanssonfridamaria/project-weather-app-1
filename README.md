@@ -10,4 +10,4 @@ This is my first project fetching a third party API. I used the GEO location API
 HTML, CSS, Javascript & Bootstrap library.
 
 ### View it here: 
-https://awesome-lichterman-0f0a9b.netlify.app/
+https://weatherappfrida.netlify.app/
